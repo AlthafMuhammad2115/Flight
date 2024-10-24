@@ -1,3 +1,4 @@
+// routes/user.js
 const express = require('express');
 const router = express.Router();
 const { register, login, searchFlights, bookFlight, myBookings, logout } = require('../controllers/userController');

@@ -1,9 +1,20 @@
-const mongoose = require('mongoose');
+// models/Booking.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db');
+const User = require('./User');
+const Flight = require('./Flight');
 
-const BookingSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  flight: { type: mongoose.Schema.Types.ObjectId, ref: 'Flight', required: true },
-  bookingTime: { type: Date, default: Date.now },
+const Booking = sequelize.define('Booking', {
+  bookingTime: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  }
 });
 
-module.exports = mongoose.model('Booking', BookingSchema);
+// Associations
+User.hasMany(Booking);
+Booking.belongsTo(User);
+Flight.hasMany(Booking);
+Booking.belongsTo(Flight);
+
+module.exports = Booking;

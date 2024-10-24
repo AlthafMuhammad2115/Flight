@@ -1,10 +1,25 @@
-const mongoose = require('mongoose');
+// models/Flight.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db');
 
-const FlightSchema = new mongoose.Schema({
-  flightNumber: { type: String, required: true, unique: true },
-  departureTime: { type: Date, required: true },
-  arrivalTime: { type: Date, required: true },
-  seats: { type: Number, default: 60 },
+const Flight = sequelize.define('Flight', {
+  flightNumber: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false
+  },
+  departureTime: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  arrivalTime: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  seats: {
+    type: DataTypes.INTEGER,
+    defaultValue: 60
+  }
 });
 
-module.exports = mongoose.model('Flight', FlightSchema);
+module.exports = Flight;

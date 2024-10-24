@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');  // Import CORS
 const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
 const sequelize = require('./db');
@@ -8,6 +9,7 @@ require("dotenv").config();
 const app = express();
 const PORT = 3000;
 
+app.use(cors());  // Enable CORS for all routes
 app.use(bodyParser.json());
 
 // MySQL connection using Sequelize

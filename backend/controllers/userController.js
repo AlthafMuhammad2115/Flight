@@ -34,6 +34,22 @@ const login = async (req, res) => {
   }
 };
 
+const listAllFlights = async (req, res) => {
+  try {
+    // Fetch all flights from the database
+    const flights = await Flight.findAll();
+    
+    // Return the list of flights or a message if no flights are found
+    if (flights.length === 0) {
+      return res.status(404).json({ message: 'No flights available' });
+    }
+
+    res.json(flights);
+  } catch (error) {
+    console.error(error); // Log error for debugging
+    res.status(500).json({ error: 'Error fetching flights' });
+  }
+};
 const searchFlights = async (req, res) => {
   const { date, time } = req.query;
   try {
@@ -89,4 +105,5 @@ module.exports = {
   bookFlight,
   myBookings,
   logout,
+  listAllFlights
 };
